@@ -9,9 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>goit-js-hw-11</title>
     <script type="module" crossorigin src="/goit-js-hw-12/index.js"></script>
-    <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-BjRz3xa9.js">
-    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/vendor-DumFYO8Z.css">
-    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/index-C34ecMOi.css">
+    <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-Db2TdIkw.js">
+    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/vendor-CWKLx11g.css">
+    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/index-D9tlHeTC.css">
   </head>
   <body>
     <header class="header">
@@ -28,24 +28,26 @@
 
 
     <main>
-      <div class="container deep-search">
+      <div id="top" class="container deep-search">
         <form class="form">
           <label>
             <input
               type="text"
               name="search-text"
               placeholder="Search images..."
-              required
             />
           </label>
           <button type="submit">Search</button>
         </form>
       </div>
 
-      <div class="continer deep-search">
+      <div class="container deep-search">
         <ul class="gallery"></ul>
+        <button type="button" name="load-more" class="visually-hidden">
+          Load more
+        </button>
       </div>
-      <div class="continer deep-search">
+      <div class="container deep-search">
         <span class="loader visually-hidden"></span>
       </div>
     </main>
