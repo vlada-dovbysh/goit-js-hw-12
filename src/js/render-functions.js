@@ -1,11 +1,21 @@
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
-export const gallery = document.querySelector('.gallery');
-export const loader = document.querySelector('.loader');
+const gallery = document.querySelector('.gallery');
+const loader = document.querySelector('.loader');
+
+export const loadBttn = {
+    bttn: document.querySelector('button[name="load-more"]'),
+    hideBttn() {
+    loadBttn.bttn.classList.add("visually-hidden");
+    },
+    showBttn() {
+    loadBttn.bttn.classList.remove("visually-hidden");
+    }
+};
 
 export function createMarkup(hits) {
-const markUp = hits.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) =>
+    const markUp = hits.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) =>
     `<li class="gallery_item">
     <a class="gallery_img_link" href="${largeImageURL}">
     <img class="gallery_img"
@@ -36,13 +46,13 @@ const markUp = hits.map(({ webformatURL, largeImageURL, tags, likes, views, comm
     </li>
     `).join("");
 
-gallery.innerHTML = markUp;
+gallery.insertAdjacentHTML('beforeend', markUp);
 modal.refresh();
 };
 
 const modal = new SimpleLightbox('.gallery a', {
-captionsData: "alt",
-captionDelay: 150,
+    captionsData: "alt",
+    captionDelay: 150,
 });
 
 export function clearGallery() {
