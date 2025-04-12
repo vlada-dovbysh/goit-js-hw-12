@@ -64,8 +64,12 @@ async function loadMore() {
     toggleLoader();
 
     try {
-        const resp = await makeSearch(search, page)
-        if (resp.data.totalHits < Math.ceil(pageLimit * page)) {
+        const resp = await makeSearch(search, page);
+        createMarkup(resp.data.hits); 
+        page += 1; 
+
+        const totalPages = Math.ceil(resp.data.totalHits / pageLimit);
+        if (page > totalPages) {
             loadBttn.hideBttn();
             iziToast.info({
                 message: `We're sorry, but you've reached the end of search results.`,
@@ -73,23 +77,12 @@ async function loadMore() {
                 icon: iconInfo,
             });
         }
-        createMarkup(resp.data.hits);
-        page += 1;
-        smoothScroll();
     } catch (error) {
         iziToast.error({
             title: "Oh no!",
             message: `${error.message}`,
         });
     } finally {
-        toggleLoader()
-    };
-};
-
-function smoothScroll() {
-    const galleryCard = document.querySelector('.gallery_item').getBoundingClientRect();
-    window.scrollBy({
-        top: galleryCard.height * 2,
-        behavior: 'smooth',
-    })
+        toggleLoader();
+    }
 }
