@@ -1,5 +1,5 @@
 import { makeSearch, pageLimit } from "./js/pixabay-api";
-import { createMarkup, clearGallery, toggleLoader, loadBttn } from "./js/render-functions"
+import { createMarkup, clearGallery, toggleLoader, loadBttn } from "./js/render-functions";
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
@@ -32,20 +32,21 @@ async function searchSubmit(evt) {
         iziToast.error({
             title: 'Error',
             message: 'Please, enter a valid image name!',
-        })
+        });
         return;
     }
+
     clearGallery();
     toggleLoader();
 
     try {
-        const resp = await makeSearch(search);
+        const resp = await makeSearch(search, page); 
         if (resp.data.total === 0) {
             iziToast.error({
                 message: 'Sorry, there are no images matching<br>your search query. Please try again!',
-            })
+            });
             return;
-        };
+        }
         createMarkup(resp.data.hits);
         resp.data.totalHits < pageLimit ? loadBttn.hideBttn() : loadBttn.showBttn();
         page += 1;
@@ -58,15 +59,20 @@ async function searchSubmit(evt) {
         toggleLoader();
     }
     form.reset();
-};
+}
 
 async function loadMore() {
     toggleLoader();
 
     try {
         const resp = await makeSearch(search, page);
-        createMarkup(resp.data.hits); 
-        page += 1; 
+        createMarkup(resp.data.hits);
+        page += 1;
+
+        window.scrollBy({
+            top: window.innerHeight * 2,
+            behavior: 'smooth'
+        });
 
         const totalPages = Math.ceil(resp.data.totalHits / pageLimit);
         if (page > totalPages) {
